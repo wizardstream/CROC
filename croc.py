@@ -1,5 +1,9 @@
 import pgzrun
-from random import randint 
+import sys
+mod = sys.modules['__main__']
+
+from random import randint
+
 a = True
 score = 0
 c = True
@@ -10,9 +14,10 @@ HEIGHT = 1000
 
 skin = 0
 skins = ['crocim']
-player = Actor(skins[skin])
-coin = Actor("coin")
-enemy = Actor("fish")
+player = mod.Actor(skins[skin])
+coin = mod.Actor("coin")
+enemy = mod.Actor("fish")
+
 game_over = False
 lives = 3
 
@@ -23,8 +28,8 @@ lives = 3
 
 def draw():
     if not game_over:
-        screen.clear()
-        screen.fill((10,50,255))
+        mod.screen.clear()
+        mod.screen.fill((10,50,255))
         player.draw()
 
         
@@ -32,12 +37,12 @@ def draw():
         enemy.draw()
         
 
-        screen.draw.text("$" + str(score), (0, 0))
-        screen.draw.text("" + str(lives), (0, 20))
+        mod.screen.draw.text("$" + str(score), (0, 0))
+        mod.screen.draw.text("" + str(lives), (0, 20))
     else:
-        screen.fill((0, 0, 0))
-        screen.draw.text('$' + str(score), (0, 0))
-        screen.draw.text('Press \'SPACE\' to start again', (screen.width / 2, screen.height / 2))
+        mod.screen.fill((0, 0, 0))
+        mod.screen.draw.text('$' + str(score), (0, 0))
+        mod.screen.draw.text('Press \'SPACE\' to start again', (mod.screen.width / 2, mod.screen.height / 2))
         player.x = 400
         player.y = 400 + 18
         player.draw()
@@ -76,13 +81,13 @@ def update():
     global a
     global skins, skin
     if lives > 0:
-        if keyboard.left:
+        if mod.keyboard.left:
             player.x -= 5
-        if keyboard.right:
+        if mod.keyboard.right:
             player.x += 5
-        if keyboard.down:
+        if mod.keyboard.down:
             player.y += 5
-        if keyboard.up:
+        if mod.keyboard.up:
             player.y -= 5
         coin_count = player.colliderect(coin)
         if coin_count:
@@ -100,7 +105,7 @@ def update():
         
     else:
         End()
-        if keyboard.space:
+        if mod.keyboard.space:
             lives = 3
             place_actors()
 
