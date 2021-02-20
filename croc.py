@@ -4,9 +4,15 @@ mod = sys.modules['__main__']
 
 from random import randint
 
+# DEFINE A SOUND WITH THE INTERNAL SYNTHESIZER
+sound1 = mod.tone.create('A5', 0.5)
+sound2 = mod.tone.create('F5', 0.5)
+sound3 = mod.tone.create('E3', 0.5)
+
 a = True
 score = 0
 c = True
+start = True
 
 TITLE = 'croc!'
 WIDTH = 1000
@@ -21,8 +27,8 @@ enemy = mod.Actor("fish")
 game_over = False
 lives = 3
 
+mod.sounds.background.play()
 
- 
 
 
 
@@ -110,9 +116,8 @@ def update():
             place_actors()
 
             game_over = False
-        
-            
-            
+            mod.sounds.background.play()
+
 
 def chasePlayer():
     if enemy.x < player.x:
@@ -123,13 +128,15 @@ def chasePlayer():
         enemy.y = enemy.y + 1
     if enemy.y > player.y:
         enemy.y = enemy.y - 1
-     
-   
+
                 
 def End():
     global game_over
-    game_over = True
-    a = True
+    if game_over == False:
+        mod.sounds.background.stop()
+        mod.sounds.eep.play()
+        game_over = True
+        a = True
     
 def on_mouse_down(pos):
     global skin
