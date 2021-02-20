@@ -1,2 +1,2 @@
 # CROC
-Game for my Bro
+Coin collecter. Not done.
