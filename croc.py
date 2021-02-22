@@ -27,9 +27,11 @@ enemy = mod.Actor("fish")
 game_over = False
 lives = 3
 
-mod.sounds.background.play()
+def play_music():
+    mod.music.play('underwater')
 
-
+def stop_music():
+        mod.music.stop()
 
 
 def draw():
@@ -116,7 +118,7 @@ def update():
             place_actors()
 
             game_over = False
-            mod.sounds.background.play()
+            play_music()
 
 
 def chasePlayer():
@@ -133,7 +135,7 @@ def chasePlayer():
 def End():
     global game_over
     if game_over == False:
-        mod.sounds.background.stop()
+        stop_music()
         mod.sounds.eep.play()
         game_over = True
         a = True
@@ -153,7 +155,7 @@ def on_mouse_down(pos):
     
 
 
-
+play_music()
 place_coin()
 place_enemy()
 
